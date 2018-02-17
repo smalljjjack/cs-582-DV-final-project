@@ -1,6 +1,6 @@
 import pandas as pd
 
-a = pd.read_csv("results.csv")
+soccer_data = pd.read_csv("data/results.csv")
 
 tournament_Set = set()
 team_list_Set = set()
@@ -9,7 +9,7 @@ city_Set = set()
 
 with open("generalData.js","w") as output:
     output.write("var tournamentList = [" + "\n")
-    for tournament in a['tournament']:
+    for tournament in soccer_data['tournament']:
         if tournament not in tournament_Set:
             output.write('\"' + tournament + '\",' + "\n")
             tournament_Set.add(tournament)
@@ -18,11 +18,11 @@ with open("generalData.js","w") as output:
     output.write("\n\n")
 
     output.write("var teamList = [" + "\n")
-    for home_team in a['home_team']:
+    for home_team in soccer_data['home_team']:
         if home_team not in team_list_Set:
             output.write("\'" + home_team + "\',"+ "\n")
             team_list_Set.add(home_team)
-    for guest_team in a['away_team']:
+    for guest_team in soccer_data['away_team']:
         if guest_team not in team_list_Set:
             output.write("\'" + guest_team + "\',"+ "\n")
             team_list_Set.add(guest_team)
@@ -31,7 +31,7 @@ with open("generalData.js","w") as output:
     output.write("\n\n")
 
     output.write("var countryList = [ " + "\n")
-    for country in a['country']:
+    for country in soccer_data['country']:
         if country not in country_Set:
             output.write("\'" + country + "\'," + "\n")
             country_Set.add(country)
@@ -40,7 +40,7 @@ with open("generalData.js","w") as output:
     output.write("\n\n")
 
     output.write("var cityList = [ " + "\n")
-    for city in a['city']:
+    for city in soccer_data['city']:
         if city not in city_Set:
             output.write('\"' + city + '\",' + "\n")
             city_Set.add(city)
