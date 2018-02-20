@@ -1,14 +1,11 @@
 import pandas as pd
 
-soccer_data = pd.read_csv("data/results.csv")
-
-tournament_Set = set()
-team_list_Set = set()
-country_Set = set()
-city_Set = set()
-
-
 def get_general_data():
+    soccer_data = pd.read_csv("data/results.csv")
+    tournament_Set = set()
+    team_list_Set = set()
+    country_Set = set()
+    city_Set = set()
     with open("generalData.js","w") as output:
         output.write("var tournamentList = [")
         for tournament in soccer_data['tournament']:
@@ -55,6 +52,7 @@ def get_game_number_by_year():
     :return: [{'2016':{'USA':1,'CHINA':2,'ITALY':1}},{}]
     """
     res = {}
+    soccer_data = pd.read_csv("data/results.csv")
     for date, country in zip(soccer_data['date'],soccer_data['country']):
         year = date[0:4]
         if year not in res:
@@ -75,6 +73,7 @@ def get_game_number_by_year():
 
 def get_number_by_tournament():
     res = {}
+    soccer_data = pd.read_csv("data/results.csv")
     for date, country, tournament in zip(soccer_data['date'], soccer_data['country'], soccer_data['tournament']):
         year = date[0:4]
         if tournament in res:
@@ -100,6 +99,7 @@ def get_number_by_tournament():
 
 def check_country_team():
     count = 0
+    soccer_data = pd.read_csv("data/results.csv")
     for home_team, away_team, country in zip(soccer_data['home_team'], soccer_data['away_team'], soccer_data['country']):
         if home_team != country and away_team != country:
             count += 1
