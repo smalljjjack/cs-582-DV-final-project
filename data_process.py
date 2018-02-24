@@ -129,8 +129,33 @@ def get_gameResults_by_year():
             out.write(str(entry) + ", ")
         out.write("] " + "\n" + "};")
 
+def get_teamList_by_year():
+    soccer_data = pd.read_csv("data/results.csv")
+    with open("teamListByYear.js","w") as out:
+        out.write("var teamListByYear = { " + "\n")
+        active_year = 0
+        count = 0
+        team_set = set()
+        for date, home_team, away_team in zip(soccer_data['date'], soccer_data['home_team'], soccer_data['away_team']):
+            curr_year = date[0:4]
+            if curr_year != active_year:
+                active_year = curr_year
+                team_set = set()
+                if count != 0:
+                    out.write("], " + "\n")
+                out.write(curr_year + ": " + " [ ")
+                count += 1
+            if home_team not in team_set:
+                out.write('\"' + home_team + '\"' + ", ")
+                team_set.add(home_team)
+            if away_team not in team_set:
+                out.write('\"' + away_team + '\"' + ", ")
+                team_set.add(away_team)
+        out.write("] " + "\n" + "};")
+
 # check_country_team()
 # get_game_number_by_year()
 # get_number_by_tournament()
 # get_general_data()
-get_gameResults_by_year()
+# get_gameResults_by_year()
+get_teamList_by_year()
