@@ -113,7 +113,7 @@ def get_gameResults_by_year():
         out.write("var gameResults = { " + "\n")
         active_year = 0
         count = 0
-        for date, home_team, away_team, home_score, away_score in zip(soccer_data['date'], soccer_data['home_team'], soccer_data['away_team'], soccer_data['home_score'], soccer_data['away_score']):
+        for date, home_team, away_team, home_score, away_score, city in zip(soccer_data['date'], soccer_data['home_team'], soccer_data['away_team'], soccer_data['home_score'], soccer_data['away_score'], soccer_data['city']):
             curr_year = date[0:4]
             entry = {}
             if curr_year != active_year:
@@ -126,6 +126,7 @@ def get_gameResults_by_year():
             entry['away_team'] = away_team
             entry['home_score'] = home_score
             entry['away_score'] = away_score
+            entry['city'] = city
             out.write(str(entry) + ", ")
         out.write("] " + "\n" + "};")
 
@@ -157,5 +158,5 @@ def get_teamList_by_year():
 # get_game_number_by_year()
 # get_number_by_tournament()
 # get_general_data()
-# get_gameResults_by_year()
-get_teamList_by_year()
+get_gameResults_by_year()
+# get_teamList_by_year()
