@@ -1,12 +1,13 @@
 import pandas as pd
 
+
 def get_general_data():
     soccer_data = pd.read_csv("data/results.csv")
     tournament_Set = set()
     team_list_Set = set()
     country_Set = set()
     city_Set = set()
-    with open("generalData.js","w") as output:
+    with open("generalData.js", "w") as output:
         output.write("var tournamentList = [")
         for tournament in soccer_data['tournament']:
             if tournament not in tournament_Set:
@@ -16,7 +17,7 @@ def get_general_data():
 
         output.write("\n\n")
 
-        output.write("var teamList = [" )
+        output.write("var teamList = [")
         for home_team in soccer_data['home_team']:
             if home_team not in team_list_Set:
                 output.write("\'" + home_team + "\',")
@@ -53,7 +54,7 @@ def get_game_number_by_year():
     """
     res = {}
     soccer_data = pd.read_csv("data/results.csv")
-    for date, country in zip(soccer_data['date'],soccer_data['country']):
+    for date, country in zip(soccer_data['date'], soccer_data['country']):
         year = date[0:4]
         if year not in res:
             res[year] = {}
@@ -90,7 +91,7 @@ def get_number_by_tournament():
             res[tournament][year] = {}
             res[tournament][year][country] = 1
 
-    with open("getNumberByTournament.js","w") as out:
+    with open("getNumberByTournament.js", "w") as out:
         out.write("var numberOfGamesByTournamentYear = ")
         out.write(str(res))
         out.write(";\n")
@@ -106,7 +107,30 @@ def check_country_team():
     print(count)
 
 
+def get_gameResults_by_year():
+    soccer_data = pd.read_csv("data/results.csv")
+    with open("gameResultsByYear.js", "w") as out:
+        out.write("var gameResults = { " + "\n")
+        active_year = 0
+        count = 0
+        for date, home_team, away_team, home_score, away_score in zip(soccer_data['date'], soccer_data['home_team'], soccer_data['away_team'], soccer_data['home_score'], soccer_data['away_score']):
+            curr_year = date[0:4]
+            entry = {}
+            if curr_year != active_year:
+                active_year = curr_year
+                if count != 0:
+                    out.write("], " + "\n")
+                out.write(curr_year + ": " + " [ ")
+                count +=1
+            entry['home_team'] = home_team
+            entry['away_team'] = away_team
+            entry['home_score'] = home_score
+            entry['away_score'] = away_score
+            out.write(str(entry) + ", ")
+        out.write("] " + "\n" + "};")
+
 # check_country_team()
 # get_game_number_by_year()
 # get_number_by_tournament()
-get_general_data()
+# get_general_data()
+get_gameResults_by_year()
