@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Win Los Bar</title>
+    <title>Win Lose Bar</title>
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,14 +15,40 @@
     <script src="winLoseBar.js"></script>
 </head>
 
+<style>
+    #tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 20px;
+        margin: 10px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 1px;
+        border-radius: 2px;
+        pointer-events: none;
+    }
+    #tooltip{
+        background:rgba(0,0,0,0.9);
+        border:1px solid grey;
+        border-radius:5px;
+        font-size:12px;
+        width:auto;
+        padding:4px;
+        color:white;
+        opacity:0;
+    }
+    </style>
+
 <body>
 <svg id="winLoseBar"></svg>
+<div id="tooltip"></div>
 </body>
 
 <script>
 
-var [winLoseTotal, asHost, asGuest] = getWinLoseData(2016, "Germany");
-drawWinLoseBar(winLoseTotal,asHost, asGuest);
+var team = "England"
+var [winLoseTotal, asHost, asGuest] = getWinLoseData(2000, 2016, team);
+drawWinLoseBar(winLoseTotal,asHost, asGuest, team);
 
 </script>
 
