@@ -1,3 +1,1 @@
-'use strict'
-
-// util and helper functions for Soccer Data Vis
+// utils and helper functions for Soccer Data Vis
