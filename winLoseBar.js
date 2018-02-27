@@ -2,7 +2,7 @@ function getWinLoseData(yearFrom, yearTo, team) {
     var winLoseTotal = { 'win': 0, 'lose': 0, 'defend': 0 };
     var asGuest = {};
     var asHost = {};
-
+    
     while (yearFrom <= yearTo) {
         gameResults[yearFrom].forEach(function (d) {
             if (d.away_team == team || d.home_team == team) {
@@ -52,7 +52,7 @@ function drawWinLoseBar(winLoseTotal, asHost, asGuest, team) {
     var cities = hostCities.concat(guestCities);
 
     var totalWidth = 800;
-    var totalHeight = 400;
+    var totalHeight = 600;
 
     var margin = { top: 20, right: 20, bottom: 30, left: 40 };
     var width = totalWidth - margin.left - margin.right;
@@ -223,7 +223,6 @@ function drawWinLoseBar(winLoseTotal, asHost, asGuest, team) {
         }
 
     }
-
 
 }
 

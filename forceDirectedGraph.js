@@ -1,6 +1,9 @@
+// reference : https://github.com/alignedleft/d3-book/blob/master/chapter_13/07_force.html
+//             https://github.com/alignedleft/d3-book/blob/master/chapter_13/08_force_draggable.html
+
 function drawForceDirectedGraph(year) {
     var w = 800;
-    var h = 400;
+    var h = 600;
 
     // var year = 1949;
 
@@ -46,7 +49,7 @@ function drawForceDirectedGraph(year) {
         .data(dataset.nodes)
         .enter()
         .append("circle")
-        .attr("r", 10)
+        .attr("r", 8)
         .style("fill", function (d, i) {
             return colors(i);
         })
@@ -54,11 +57,7 @@ function drawForceDirectedGraph(year) {
             .on("start", dragStarted)
             .on("drag", dragging)
             .on("end", dragEnded));
-    //Add a simple tooltip
-    // nodes.append("title")
-    //     .text(function (d) {
-    //         return d.name;
-    //     });
+
 
     nodes
         .on("mouseover", function (d) {
@@ -86,8 +85,12 @@ function drawForceDirectedGraph(year) {
             console.log(d);
             var team = d.name;
             activeTeam = team;
-            yearFrom = year - 2 >= 1900 ? year - 2 : 1900;
-            yearTo = year + 2 <= 2018 ? year + 2 : 2018;
+            year = parseInt(year);
+            let yearFrom = parseInt(year - 3); if(yearFrom <= 1950) {yearFrom = 1950;}
+            let yearTo = parseInt(year + 3); if(yearTo >= 2017) {yearTo = 2017;}
+            console.log(yearFrom)
+            console.log(yearTo)
+            console.log(year)
             $("#winLoseBar").empty();
             var [winLoseTotal, asHost, asGuest] = getWinLoseData(yearFrom, yearTo, team);
             drawWinLoseBar(winLoseTotal, asHost, asGuest, team);
@@ -95,13 +98,13 @@ function drawForceDirectedGraph(year) {
 
     //Every time the simulation "ticks", this will be called
     force.on("tick", function () {
-        edges.attr("x1", function (d) { return d.source.x/1.2; })
-            .attr("y1", function (d) { return d.source.y/1.2; })
-            .attr("x2", function (d) { return d.target.x/1.2; })
-            .attr("y2", function (d) { return d.target.y/1.2; });
+        edges.attr("x1", function (d) { return d.source.x / 1.2; })
+            .attr("y1", function (d) { return d.source.y / 1.2; })
+            .attr("x2", function (d) { return d.target.x / 1.2; })
+            .attr("y2", function (d) { return d.target.y / 1.2; });
 
-        nodes.attr("cx", function (d) { return d.x/1.2; })
-            .attr("cy", function (d) { return d.y/1.2; });
+        nodes.attr("cx", function (d) { return d.x / 1.2; })
+            .attr("cy", function (d) { return d.y / 1.2; });
 
     });
     //Define drag event functions
