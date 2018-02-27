@@ -1,0 +1,612 @@
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="slopeData.js"></script>
+<script src="generalData.js"></script>
+
+
+<style>
+#main{
+  position:absolute;
+  width:2000px;px;
+  height:500px;
+  padding:10px;
+}
+#main > div{
+  float:left;
+  margin:10px;
+}
+#nation {
+  width: 300px;
+  height: 450px;
+  border:1px solid black
+}
+#yeardown {
+  width:20px;
+  height:450px;
+}
+
+#slopechart {
+  width:800px;
+  height:450px;
+  border:1px solid black
+}
+
+#yearup {
+  width:20px;
+  height: 450px; 
+}
+
+#detail {
+  width: 400px;
+  height: 450px;
+  border:1px solid black;
+}
+#nationList {
+  width: 250px;
+  height: 400px;
+  margin-left: 25px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border:1px solid black;
+}
+
+.slopetooltip {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+</style>
+
+<body>
+  <h1> slope chart </h1>
+  <p style = "margin: 50px; margin-top: 10px; margin-bottom: 10px;">The slope chart shows the winning rate of different teams in continuous four years</p>
+  <div id = "main">
+    <div id = "nation">
+      <input type="text" id="countryT" name="typeNation" placeholder="Type a country name...">
+      <input type="button" id="countryB" name="addNation" value="Add">
+      <div id="nationList"></div>
+    </div>
+    <div id = "yeardown">
+      <input type="button" name="yeardown" value="<<"/>
+    </div>
+    <div id = "slopechart"></div>
+    <div id = "yearup"> 
+      <input type="button" name="yearup" value=">>"/>
+    </div>
+    <div id = "detail"></div>
+  </div>
+</body>
+
+<script>
+
+  function slopPage(){
+    console.log(slopeData)
+    console.log(countryList);
+    var svg = d3.select("#slopechart")
+                .append("svg")
+                .attr("width", 800)
+                .attr("height", 400);
+    var nationList = countryList;
+    var dataDisplay = d3.map();
+    var selectedNations = ["USA", "England", "Germany", "Japan"];
+    var yearStart = 2012;
+
+
+        var xScale = d3.scaleBand().range([50, 900]).domain([0, 1, 2, 3, 4]);
+        var yScale = d3.scaleBand().range([25, 375]).domain(selectedNations);
+        var rateScale = d3.scaleLinear().range([0, 350 / selectedNations.length]).domain([0, 1]) ;
+        var color = d3.scaleThreshold()
+                      .domain(d3.range(0, selectedNations.length))
+                      .range(d3.schemeSet3);
+
+        function displayData(nation, year) {
+          var result = d3.map();
+          nation.forEach(function (d) {
+            var p = [];
+            for (var i = 0; i < 5; i++) {
+              var temp = {};
+              temp["nation"] = d;
+              var rate = 0;
+              if (d in slopeData[year + i]) {
+                  rate = Math.round((+slopeData[year + i][d]["win"] / +slopeData[year + i][d]["total"]) * 100) / 100;
+              }             
+              temp["rate"] = rate;
+              temp["x"] = xScale(i);
+              temp["y"] = yScale(d) + (350 / selectedNations.length) - rateScale(rate);
+              
+              p.push(temp);
+            }
+            result.set(d, p);
+          })
+          return result;
+        }
+
+        dataDisplay = displayData(selectedNations, yearStart);
+
+        var lineFunction = d3.line()
+                                 .x(function (d, i) {return d.x;})
+                                 .y(function (d, i) {return d.y;});
+                             
+        var namespace = [[],[],[],[],[]];
+        var slopePie = [];
+        var div_pie = d3.select("#detail")
+                        .append("div")
+                        .attr("class", "slopetooltip")
+                        .style("opacity", 0);
+
+        var svg_pie = d3.select("#detail")
+                        .append("svg")
+                        .attr("width", 350)
+                        .attr("height", 400);
+
+        function drawLines() {
+          var g = svg.append("g");
+          var data = dataDisplay.values();
+          var count = 0;
+          data.forEach(function (d) {
+            namespace[0][count] = g.append("path")
+                                   .attr("id", d[0]["nation"] + "01")
+                                   .attr("d", lineFunction(d))
+                                   .attr("stroke", function() {return color(count);})
+                                   .attr("fill", "none")
+                                   .attr("stroke-width", 1.5)
+                                   .on("mouseover", function(d) {
+                                        d3.select(this)
+                                          .attr("stroke-width", 5)
+                                   })
+                                   .on("mouseout", function(d) {
+                                        d3.select(this)
+                                          .attr("stroke-width", 1.5)
+                                   })
+                                   .on("click", function(d, i) {
+                                       drawPie(d3.event.x, this.id);
+                                   });
+            count++;
+          })
+          return g;
+        }
+        var line = drawLines();       
+
+        var dot = drawDots();
+        function drawDots() {
+          var g = svg.append("g");
+          var data = dataDisplay.values();
+          var count = 0;
+
+          data.forEach(function(d){
+            namespace[1][count] = g.append("g")
+             .selectAll("circle")
+             .data(d)
+             .enter().append("circle")
+             .attr("cx", function(d) {
+                    return d.x;
+                 })
+                 .attr("cy", function(d) {
+                    return d.y
+                 })
+                 .attr("r", 2)
+                 .attr("fill", "black");
+                
+                namespace[2][count] = g.append("g")
+                 .selectAll("text")
+                 .data(d)
+                 .enter().append("text")
+                 .attr("x", function(d) {
+                  return d.x + 2;
+                 })
+                 .attr("y", function(d) {
+                  return d.y + 2;
+                 })
+                 .text(function(d) {
+                  return d.rate;
+                 });
+
+                namespace[3][count] = g.append("g")
+                 .append("text")
+                 .attr("x", d[0].x)
+                 .attr("y", d[0].y + 20)
+                 .text(d[0].nation);
+
+                count++;
+
+             })
+          return g;
+        }
+
+        var axis_label, axis_line;
+        var axis = drawAxis(); 
+        function drawAxis() {
+          var data = [];
+          for (var i = 0; i < 5; i++) {
+            data.push(xScale(i));
+          }
+          var g = svg.append("g");
+
+          axis_line =g.selectAll("line")
+           .data(data)
+           .enter().append("line")
+           .attr("x1", function(d) {return d;})
+           .attr("y1", 25)
+           .attr("x2", function(d) {return d;})
+           .attr("y2", 375)
+           .style("stroke", "black")
+           .style("stroke-width", 2);
+
+          axis_label = g.selectAll("text")
+           .data(data)
+           .enter().append("text")
+           .attr("x", function(d) {return d;})
+           .attr("y", 20)
+           .text(function(d, i) {
+            return yearStart + i;
+           })
+        }
+
+        var svg_country = d3.select("#nationList")
+                         .append("svg")
+                         .attr("width", 250)
+                         .attr('height', 400);
+
+
+        var country = drawCountry();
+        
+        function drawCountry() {
+          var level = Math.ceil(selectedNations.length / 2);
+          var y_country = d3.scaleBand().range([195 - 35 * level, 205 + 35 * level]).paddingInner((level + 1)/(7*level + 1)).domain(d3.range(0, level)); 
+          var g = svg_country.append("g");
+          var count = 0;
+          selectedNations.forEach(function (d) {
+            var c = g.append("g")
+                     .attr("id", d)
+            c.append("rect")
+             .attr("height", 60)
+             .attr("width", 100)
+             .attr("fill", function(){return color(count);});
+
+            c.append("text")
+             .text(d)
+             .attr("transform", "translate(20,30)");
+
+            c.attr("transform", function() {
+              var x, y;
+              if (count % 2 == 0) {
+                x = 15;
+              }
+              else {
+                x = 135;
+              }
+              y = y_country(Math.floor(count / 2));
+              return "translate(" +[x, y]+")";
+            })
+                 .call(d3.drag()
+                       .on("start", dragstarted)
+                       .on("drag", dragged)
+                       .on("end", dragended)); 
+              namespace[4][count] = c;
+              count++; 
+          })
+          return g;
+        }
+
+        function dragstarted(d) {
+            d3.select(this).raise().classed("active", true);
+        }
+
+        function dragged(d) {
+            d3.select(this).attr("transform", function(d) {
+            return "translate("+[d3.event.x, d3.event.y] + ")";});
+        }
+
+        function dragended(d) {
+            if (outRegion(d3.event.x, d3.event.y)) {
+                var index = selectedNations.indexOf(this.id);
+                selectedNations.splice(index, 1);
+                updateCountry();
+            }
+            d3.select(this).classed("active", false);
+        }  
+
+        function outRegion(x, y) {
+          if (x > 200 || x < 0 || y < 0 || y > 370) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }                          
+
+
+
+// when click ">>" button, update chart
+        d3.select("#yearup")
+          .on("click", function() {
+            yearStart = yearStart + 1;
+            if (yearStart > 2014) {
+              yearStart = 2014;
+              return;
+            }
+            var years = function() {
+              var data = [];
+              for (var i = 0; i < 5; i++) {
+                data.push(xScale(i));
+              }
+              return data;
+            }
+            
+            dataDisplay = displayData(selectedNations, yearStart);
+            var count = 0; 
+            console.log(dataDisplay);
+            
+            //update axis
+            axis_label.data(years)
+                      .transition()
+                      .text(function(d, i) {
+                        return yearStart + i;
+                      });
+
+            dataDisplay.values().forEach(function(d) {
+              //update lines 
+              namespace[0][count].transition()
+                                 .attr("d", lineFunction(d));
+              //update dots
+              namespace[1][count].data(d)
+                                 .transition()
+                                 .attr("cx", function(d) {return d.x;})
+                                   .attr("cy", function(d) {return d.y;});
+                namespace[2][count].data(d)
+                                   .transition()
+                                   .attr("x", function(d) {return d.x + 2;})
+                                   .attr("y", function(d) {return d.y + 2;})
+                                   .text(function(d) {return d.rate;});
+                namespace[3][count].data(d)
+                                   .transition()
+                                   .attr("x", d[0].x)
+                                   .attr("y", d[0].y + 20)
+                                   .text(d[0].nation);
+                count++;
+            })
+          })
+
+// when click "<<" button, update chart
+        d3.select("#yeardown")
+          .on("click", function() {
+            yearStart = yearStart - 1;
+            if (yearStart < 1950) {
+              yearStart = 1950;
+              return;
+            }
+            var years = function() {
+              var data = [];
+              for (var i = 0; i < 5; i++) {
+                data.push(xScale(i));
+              }
+              return data;
+            }
+
+            dataDisplay = displayData(selectedNations, yearStart);
+            var count = 0; 
+            
+            //update axis
+            axis_label.data(years)
+                      .transition()
+                      .text(function(d, i) {
+                        return yearStart + i;
+                      });
+
+            
+            dataDisplay.values().forEach(function(d) {
+              //update lines 
+              namespace[0][count].transition()
+                                 .attr("d", lineFunction(d));
+              //update dots
+              namespace[1][count].data(d)
+                                 .transition()
+                                 .attr("cx", function(d) {return d.x;})
+                                   .attr("cy", function(d) {return d.y;});
+                namespace[2][count].data(d)
+                                   .transition()
+                                   .attr("x", function(d) {return d.x + 2;})
+                                   .attr("y", function(d) {return d.y + 2;})
+                                   .text(function(d) {return d.rate;});
+                namespace[3][count].data(d)
+                                   .transition()
+                                   .attr("x", d[0].x)
+                                   .attr("y", d[0].y + 20)
+                                   .text(d[0].nation);
+                count++;
+            })
+
+          });
+
+//update when selected contry changed 
+
+        function updateCountry() {
+            yScale = d3.scaleBand().range([25, 375]).domain(selectedNations);
+            rateScale = d3.scaleLinear().range([0, 350 / selectedNations.length]).domain([0, 1]) ;
+            color = d3.scaleThreshold()
+                      .domain(d3.range(0, selectedNations.length))
+                      .range(d3.schemeSet3)
+          dataDisplay = displayData(selectedNations, yearStart);                    
+          var count = 0
+            if (dataDisplay.values().length < namespace[0].length) {
+              var l = namespace[0].length - 1;
+              for (var i = 0; i < 4; i++) {
+                namespace[i][l].remove();
+                namespace[i].splice(l, 1);
+              }
+            }
+            else {
+              var l = dataDisplay.values().length - 1;
+              var dd = dataDisplay.values()[l];
+              namespace[0][l] = line.append("path")
+                                    .attr("id", dd[0]["nation"] + "01")
+                                    .attr("d", lineFunction(dd))
+                                    .attr("stroke", function() {return color(l);})
+                                    .attr("fill", "none")
+                                    .attr("stroke-width", 1.5)
+                                  .on("mouseover", function(d) {
+                                        d3.select(this)
+                                          .attr("stroke-width", 5)
+                                   })
+                                  .on("mouseout", function(d) {
+                                        d3.select(this)
+                                          .attr("stroke-width", 1.5)
+                                   })
+                                  .on("click", function(d, i) {
+                                       drawPie(d3.event.x, this.id);
+                                   });
+
+              namespace[1][l] = dot.append("g")
+                                 .selectAll("circle")
+                                 .data(dd)
+                                 .enter().append("circle")
+                                 .attr("cx", function(d) {return d.x;})
+                                     .attr("cy", function(d) {return d.y;})
+                                     .attr("r", 2)
+                                     .attr("fill", "black");
+                
+                namespace[2][l] = dot.append("g")
+                                     .selectAll("text")
+                                     .data(dd)
+                                     .enter().append("text")
+                                     .attr("x", function(d) {return d.x + 2;})
+                                     .attr("y", function(d) {return d.y + 2;})
+                                     .text(function(d) {return d.rate;});
+
+                namespace[3][l] = dot.append("g")
+                                     .append("text")
+                                     .attr("x", dd[0].x)
+                                     .attr("y", dd[0].y + 20)
+                                     .text(dd[0].nation);
+            }
+            
+            dataDisplay.values().forEach(function(d) {
+              //update lines 
+              namespace[0][count].transition()
+                                 .attr("d", lineFunction(d));  
+              //update dots             
+              namespace[1][count].data(d)
+                                 .transition()
+                                 .attr("cx", function(d) {return d.x;})
+                                   .attr("cy", function(d) {return d.y;});
+                namespace[2][count].data(d)
+                                   .transition()
+                                   .attr("x", function(d) {return d.x + 2;})
+                                   .attr("y", function(d) {return d.y + 2;})
+                                   .text(function(d) {return d.rate;});
+                namespace[3][count].data(d)
+                                   .transition()
+                                   .attr("x", d[0].x)
+                                   .attr("y", d[0].y + 20)
+                                   .text(d[0].nation);
+                count++;
+            })
+            
+            if (count == namespace[0].length - 1) {
+              for (var i = 0; i < 4; i++) {
+                namespace[i][count].remove();
+                namespace[i].splice(count, 1);
+              }
+            }
+            //update countries
+            namespace[4].forEach(function(d) {
+              d.remove();
+            })
+            namespace[4] = [];
+            country = drawCountry();
+        }
+
+        d3.select("#countryB")
+          .on("click", function() {
+            var txt = document.getElementById("countryT").value;
+            if (txt.length == 0) {
+              return;
+            }
+            if (selectedNations.includes(txt)) {
+              alert("Country already included!");
+              return;
+            }
+            if (!nationList.includes(txt)) {
+              alert("No such country!");
+              return;
+            }
+            selectedNations.push(txt);
+            country = updateCountry();
+          });
+
+        function drawPie(p, d) {
+          var index = Math.floor((p - 280) / 170);
+          var year = yearStart + index;
+          var nation = d.substring(0, d.length - 2)
+          var data = slopeData[year][nation];
+          //delete data["win"];
+          //delete data["total"];
+ 
+          var keys = Object.keys(data);
+          var dd = [];
+          for(var i = 2; i < keys.length; i++) {
+            dd.push(+data[keys[i]]);
+          }
+          console.log(keys)
+            var arc = d3.arc()
+                        .innerRadius(0)
+                        .outerRadius(120);
+          if (slopePie.length == 0) {
+            pie();
+          }
+          else {
+            slopePie[0].remove();
+            slopePie = [];
+            pie();
+          }
+          function pie() {
+            var g = svg_pie.append("g")
+                           .attr("transform", "translate(" + 150 + "," + 400 / 2 + ")");
+
+            var pie = d3.pie().value(function(d, i) {
+              return +d;
+            }).sort(null);
+            var p = g.selectAll("path")
+                     .data(pie(dd))
+                     .enter().append("path")
+                     .attr('d', arc)
+                     .attr("fill", function(d, i) {
+                      return color(i);
+                     })
+                     .attr("stroke", "black")
+                     .attr("stroke-width", 1)
+                     .on("mouseover", function(d, i) {
+                      d3.select(this)
+                        .attr("stroke-width", 3)
+                      div_pie.transition()
+                             .duration(200)
+                             .style("opacity", .9);
+                      div_pie.html(keys[i + 2] + ": " + data[keys[i + 2]])
+                             .style("left", (d3.event.pageX) + "px")
+                             .style("top", (d3.event.pageY) + "px")
+                     })
+                     .on("mouseout", function(d, i) {
+                      d3.select(this)
+                        .attr("stroke-width", 1);
+                      div_pie.transition()
+                             .duration(500)
+                             .style("opacity", 0);
+                     });
+
+            slopePie.push(g);
+          }
+          
+
+        }
+  }
+  slopPage();
+
+</script>
