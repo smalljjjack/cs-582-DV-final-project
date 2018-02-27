@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Part 2</title>
+</head>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="generalData.js"></script>
+<script src="gameResultsByYear.js"></script>
+<script src="teamListByYear.js"></script>
+
+<script src="winLoseBar.js"></script>
+<script src="forceDirectedGraph.js"></script>
+
+<style>
+    #tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 20px;
+        margin: 10px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 1px;
+        border-radius: 2px;
+        pointer-events: none;
+    }
+
+    #tooltip {
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px solid grey;
+        border-radius: 5px;
+        font-size: 12px;
+        width: auto;
+        padding: 4px;
+        color: white;
+        opacity: 0;
+    }
+</style>
+
+
+<body>
+    <div class="year-select">
+        <input type="text" id="yearSelect" value="" onkeypress="enterFunc(event)">
+        <input type="button" name="" id="" value="submit" onclick="myFunc()">
+    </div>
+
+    <svg id="forceDirectedGraph"></svg>
+
+    <!-- <div class="year-select">
+        <input type="text" id="yearFrom" value="">
+        <input type="text" id="yearTo" value="">
+        <input type="button" name="" value="submit" onclick="winLoseBar()">
+    </div> -->
+
+    <svg id="winLoseBar"></svg>
+    <div id="tooltip"></div>
+
+</body>
+<script>
+    
+    var activeTeam = "England";
+
+    function enterFunc(e) {
+        if (e.charCode == 13) {
+            myFunc();
+        }
+    }
+
+    function myFunc() {
+        $("#forceDirectedGraph").empty();
+        var year = document.getElementById("yearSelect").value;
+        if (year >= 1950 && year <= 2017) {
+            drawForceDirectedGraph(year);
+        }
+        else {
+            alert("year not in range")
+        }
+    }
+    drawForceDirectedGraph(2016);
+
+    function winLoseBar() {
+        $("#winLoseBar").empty();
+        var yearFrom = document.getElementById("yearFrom").value;
+        var yearTo = document.getElementById("yearTo").value;
+        // var team = document.getElementById("team").value;
+
+        // console.log(yearFrom)
+        // console.log(yearTo)
+        // console.log(team)
+
+        var [winLoseTotal, asHost, asGuest] = getWinLoseData(parseInt(yearFrom), parseInt(yearTo), activeTeam);
+        drawWinLoseBar(winLoseTotal, asHost, asGuest, activeTeam);
+    }
+
+    var [winLoseTotal, asHost, asGuest] = getWinLoseData(2013, 2017, activeTeam);
+    drawWinLoseBar(winLoseTotal, asHost, asGuest, activeTeam);
+
+</script>
+
+</html>

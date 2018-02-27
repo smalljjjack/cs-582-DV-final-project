@@ -76,7 +76,6 @@ function drawWinLoseBar(winLoseTotal, asHost, asGuest, team) {
     //     .attr("transform", "translate(0" + height + ")")
     //     .call(d3.axisBottom(x));
 
-
     g.append("g")
         .attr("class", "axis axis--yw")
         .attr("y", 10)
@@ -108,7 +107,7 @@ function drawWinLoseBar(winLoseTotal, asHost, asGuest, team) {
         .attr("width", x.bandwidth())
         .attr("height", function (d) { return height - y(asHost[d]['win']) })
         .attr("transform", "translate(0, -" + height / 2 + ")")
-        .attr("fill", "green")
+        .attr("fill", "red")
         .on("mouseover", mouseOverHostWin)
         .on("mouseout", mouseOut)
 
@@ -123,7 +122,7 @@ function drawWinLoseBar(winLoseTotal, asHost, asGuest, team) {
         .attr("y", height / 2)
         .attr("width", x.bandwidth())
         .attr("height", function (d) { return -y(asHost[d]['lose'] + asHost[d]['defend']) + height; })
-        .attr("fill", "red")
+        .attr("fill", "black")
         .on("mouseover", mouseOverHostLose)
         .on("mouseout", mouseOut)
 
@@ -137,7 +136,9 @@ function drawWinLoseBar(winLoseTotal, asHost, asGuest, team) {
         .attr("width", x.bandwidth())
         .attr("height", function (d) { return height - y(asGuest[d]['win']) })
         .attr("transform", "translate(0, -" + height / 2 + ")")
-        .attr("fill", "blue")
+        .attr("fill", "#FF6961")
+        // .attr("stroke-width", "2")
+        // .attr("stroke", "red")
         .on("mouseover", mouseOverGuestWin)
         .on("mouseout", mouseOut)
 
@@ -150,7 +151,9 @@ function drawWinLoseBar(winLoseTotal, asHost, asGuest, team) {
         .attr("y", height / 2)
         .attr("width", x.bandwidth())
         .attr("height", function (d) { return -y(asGuest[d]['lose'] + asGuest[d]['defend']) + height; })
-        .attr("fill", "yellow")
+        .attr("fill", "#321414")
+        // .attr("stroke-width", "2")
+        // .attr("stroke", "black")
         .on("mouseover", mouseOverGuestLose)
         .on("mouseout", mouseOut)
 

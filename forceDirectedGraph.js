@@ -1,6 +1,6 @@
 function drawForceDirectedGraph(year) {
-    var w = 1000;
-    var h = 1000;
+    var w = 800;
+    var h = 400;
 
     // var year = 1949;
 
@@ -10,7 +10,7 @@ function drawForceDirectedGraph(year) {
         nodes.push(entry);
         // console.log(d);
     });
-    var links = []
+    var links = [];
     gameResults[year].forEach(function (d) {
         // console.log(d.away_team);
         entry = { source: teamListByYear[year].indexOf(d.home_team), target: teamListByYear[year].indexOf(d.away_team) };
@@ -55,20 +55,53 @@ function drawForceDirectedGraph(year) {
             .on("drag", dragging)
             .on("end", dragEnded));
     //Add a simple tooltip
-    nodes.append("title")
-        .text(function (d) {
-            return d.name;
-        });
+    // nodes.append("title")
+    //     .text(function (d) {
+    //         return d.name;
+    //     });
+
+    nodes
+        .on("mouseover", function (d) {
+            // console.log(d);
+            nodes
+                .style("fill", function (d1) {
+                    return d1 == d ? "red" : "grey";
+                })
+
+            d3.select("#tooltip").transition(200).style("opacity", 0.9);
+
+            d3.select('#tooltip')
+                .html(d.name)
+                .style('left', (d3.event.pageX) + 'px')
+                .style('top', (d3.event.pageY - 28) + 'px')
+        })
+        .on("mouseout", function (d) {
+            nodes
+                .style("fill", function (d, i) {
+                    return colors(i);
+                })
+            d3.select("#tooltip").transition().duration(500).style("opacity", 0);
+        })
+        .on("click", function (d) {
+            console.log(d);
+            var team = d.name;
+            activeTeam = team;
+            yearFrom = year - 2 >= 1900 ? year - 2 : 1900;
+            yearTo = year + 2 <= 2018 ? year + 2 : 2018;
+            $("#winLoseBar").empty();
+            var [winLoseTotal, asHost, asGuest] = getWinLoseData(yearFrom, yearTo, team);
+            drawWinLoseBar(winLoseTotal, asHost, asGuest, team);
+        })
 
     //Every time the simulation "ticks", this will be called
     force.on("tick", function () {
-        edges.attr("x1", function (d) { return d.source.x; })
-            .attr("y1", function (d) { return d.source.y; })
-            .attr("x2", function (d) { return d.target.x; })
-            .attr("y2", function (d) { return d.target.y; });
+        edges.attr("x1", function (d) { return d.source.x/1.2; })
+            .attr("y1", function (d) { return d.source.y/1.2; })
+            .attr("x2", function (d) { return d.target.x/1.2; })
+            .attr("y2", function (d) { return d.target.y/1.2; });
 
-        nodes.attr("cx", function (d) { return d.x; })
-            .attr("cy", function (d) { return d.y; });
+        nodes.attr("cx", function (d) { return d.x/1.2; })
+            .attr("cy", function (d) { return d.y/1.2; });
 
     });
     //Define drag event functions
