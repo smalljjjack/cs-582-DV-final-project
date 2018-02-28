@@ -45,7 +45,7 @@ date, home_team, away_team, home_score, away_score, tournament, city, country.
 ![csvPreview](img/csvPreview.png)
 
 ## Data Processing 
-This dataset has already contains everything we needed to do the visualization. But this is the reason that this dataset must be processed before using. First, in terms of winning rate for different kinds of games, we need caluclate Win or Lose or Defend based on the score. Second, It will be convenient for us to fist do some classification based on the year, country. 
+This dataset has already contains everything we needed to do the visualization. But this is the reason that this dataset must be processed before using. First, in terms of winning rate for different kinds of games, we need caluclate Win or Lose or Defend based on the score. Second, It will be convenient for us to fist do some classification based on either year, team or country. 
 
 Data processing is mainly done in python. We use pandas to read the csv data and then write the desired data into a js file, which will be included as script tag for the project. So in our project we can easily access to it.
 
@@ -88,10 +88,13 @@ Initially, we have two parts, part 1 mainly contains a heatmap showing the numbe
 
 ![part2_sketch](img/part2_sketch.jpg)
 
-This sketch contains the original design of part 2. What on the left is a force directed graph showing all the games within year period. When clicking in the nodes, right part will appear the win lose bar chart for a team in different cities.
+This sketch contains the original design of part 2. What on the left is a force directed graph showing all the games within year period. The node represent teams, if two teams have game with each other, then there will be a link. When clicking in the nodes, right part will appear the win lose bar chart for a team in different cities.
 
 ## Final Design
 Finally, our design contains three parts. With each part consists of some different chart type.
+
+Total:
+- navigate bar
 
 Part 1:
 - Heat map:
@@ -100,10 +103,19 @@ Part 1:
 Part 2:
 
 ![part2 final](img/part2_finaldesign.png)
-This screenshot shows the final design for the part2
+This screenshot shows the final design for the part2. Left part is a force directed graph, and a html submit which you can specify the year. The right part is a bidirectional bar graph showing the number of winning and the number of losing plus defending games for the team in different cities. The force directed graph only shows one years's data, but the win lose bar will show more years from [year-3, year+3], year is what you submit.
 
 - Force directed Graph
+
+![forceTeam](img/forceDirectedGraph.png)
+
+    The force directed graph is dragable, means you can drag one node and move it to some place else. Each node will show a tooltip when mose is on showing the team of the node.
+
 - Bar chart
+
+![winlosebar](img/winLoseBar.png)
+
+    The winning is displayed in red. The losing and defending is displayed in black. However the showing of win or lose as guest or host will be slightly different. The color for guest win will be more like pink to show a slightly difference.
 
 Part 3:
 - Slope chart
