@@ -2,7 +2,7 @@
 //             https://github.com/alignedleft/d3-book/blob/master/chapter_13/08_force_draggable.html
 
 function drawForceDirectedGraph(year) {
-    var w = 800;
+    var w = 850;
     var h = 600;
 
     // var year = 1949;
@@ -98,13 +98,13 @@ function drawForceDirectedGraph(year) {
 
     //Every time the simulation "ticks", this will be called
     force.on("tick", function () {
-        edges.attr("x1", function (d) { return d.source.x / 1.2; })
-            .attr("y1", function (d) { return d.source.y / 1.2; })
-            .attr("x2", function (d) { return d.target.x / 1.2; })
-            .attr("y2", function (d) { return d.target.y / 1.2; });
+        edges.attr("x1", function (d) { return d.source.x / 1.4; })
+            .attr("y1", function (d) { return d.source.y / 1.4; })
+            .attr("x2", function (d) { return d.target.x / 1.4; })
+            .attr("y2", function (d) { return d.target.y / 1.4; });
 
-        nodes.attr("cx", function (d) { return d.x / 1.2; })
-            .attr("cy", function (d) { return d.y / 1.2; });
+        nodes.attr("cx", function (d) { return d.x / 1.4; })
+            .attr("cy", function (d) { return d.y / 1.4; });
 
     });
     //Define drag event functions
