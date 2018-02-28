@@ -118,7 +118,16 @@ This screenshot shows the final design for the part2. Left part is a force direc
     The winning is displayed in red. The losing and defending is displayed in black. However the showing of win or lose as guest or host will be slightly different. The color for guest win will be more like pink to show a slightly difference.
 
 Part 3:
+
+    The third part of this project aims to show the winning rate of a country in a continuous time perid using slope chart. So that, we can see whether a country's performance is stable or it encontered a downturn.
+
+- Country Selection
+
+![CountrySelect](img/part3_slect.png)
+
 - Slope chart
+
+
 
 # Implementation
 
