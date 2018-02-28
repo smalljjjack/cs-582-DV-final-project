@@ -93,6 +93,9 @@ This sketch contains the original design of part 2. What on the left is a force 
 ## Final Design
 Finally, our design contains three parts. With each part consists of some different chart type.
 
+Total:
+- navigate bar
+
 Part 1:
 - Heat map:
 - Bar chart:
@@ -103,9 +106,16 @@ Part 2:
 This screenshot shows the final design for the part2. Left part is a force directed graph, and a html submit which you can specify the year. The right part is a bidirectional bar graph showing the number of winning and the number of losing plus defending games for the team in different cities. The force directed graph only shows one years's data, but the win lose bar will show more years from [year-3, year+3], year is what you submit.
 
 - Force directed Graph
-    The force directed graph is dragable, means you can drag one node and move it to some place else. Each node will show a tooltip when mose is on.
+
+![forceTeam](img/forceDirectedGraph.png)
+
+    The force directed graph is dragable, means you can drag one node and move it to some place else. Each node will show a tooltip when mose is on showing the team of the node.
+
 - Bar chart
-    The winning is displayed in red. The losing and defending is displayed in black.
+
+![winlosebar](img/winLoseBar.png)
+
+    The winning is displayed in red. The losing and defending is displayed in black. However the showing of win or lose as guest or host will be slightly different. The color for guest win will be more like pink to show a slightly difference.
 
 Part 3:
 - Slope chart
