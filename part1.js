@@ -35,14 +35,14 @@
 
     var legend_width = 25;
     legend.append("rect").attr("x", function(d,i){return 20 + i*legend_width;})
-    .attr("y", height-170)
+    .attr("y", height*0.8-20)
     .attr("width", legend_width)
     .attr("height", 10)
     .style("fill", function(d,i){ return color(d)})
 
     legend.append("text")
     .attr("x", function(d, i){ return 23 + i*legend_width;})
-    .attr("y", height-150)
+    .attr("y", height*0.8)
     .data([0, 20, 50, 100, 130, 150, 180, 220, 270, 300, 400])
     .text(function(d){ return d; })
     .style("font-size", 10);
