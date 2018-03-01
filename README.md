@@ -1,11 +1,13 @@
 # cs-582-DV-final-project
 
-Github repo: 
-Github page:
+- Github repo: https://github.com/smalljjjack/cs-582-DV-final-project
+
+- Github page: https://smalljjjack.github.io/cs-582-DV-final-project/
 
 Teammember:
 ===
- Jiaxing Zhang, Xuanyu Chen, Zetian Wang
+
+Jiaxing Zhang, Xuanyu Chen, Zetian Wang
 
 Overview
 ===
