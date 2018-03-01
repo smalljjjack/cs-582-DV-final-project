@@ -151,8 +151,6 @@ Part 3:
       When click certain line in the slope chart, a pie chart will be presented in the right part of the page. The pie chart shows the detailed tournaments the country attened in that year.
       
 ![PieChart](img/part3_pi.png)
-- Slope chart
-
 
 
 # Implementation
