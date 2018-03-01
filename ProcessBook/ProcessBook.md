@@ -125,25 +125,26 @@ The third part of this project aims to show the winning rate of a country in a c
 
 The left part of the page is a region within which are labels of countries. We can drag out a label to nondisplay this country's data. We can use the type in box and "Add" buttom to add a new country.  
 
-![CountrySelect](/img/part3_slect.png)
+![CountrySelect](img/part3_slect.png)
 
 - Slope Chart
 
 The middle part of the page is a slope chart to show the winning rate of selected countries in continous 5 year. Use the buttons beside, we can change the start year of time window. The lines in the slope chart will be lightened when mouse over.
       
-![SlopeChart](/img/part3_slope.png)
+![SlopeChart](img/part3_slope.png)
 
 - Pie chart
 
 When click certain line in the slope chart, a pie chart will show in the right part. This pie chart presents the tounaments the corresponding country took that year.
       
-![PieChart](/img/part3_pi.png)
+![PieChart](img/part3_pi.png)
 
 
 
 # Implementation
 
 - Force Directed Graph
+
  Implementing the force directed graph mainly have reference from the book interactive data visualization chapter 13. In order to draw the graph, we have to prepare the data, nodes indicating countries, links indicating matches between countries. The data preparation stage is done part by python, and partly done using d3.
 
  The python part gives me two JS dictionary with key being the year, and the value is a list of results for different games and another dictionary with key being the year, value being the team list for that year. In D3 part, I use forEach to loop through the dctionary. Add countries to nodes, and check if two countries have matches in this year, and add them to links. This prepares the data needed for the force directed graph. The rest is simple using d3.force.
