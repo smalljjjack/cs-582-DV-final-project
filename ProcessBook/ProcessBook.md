@@ -1,14 +1,13 @@
 Soccer Data Vis
 ===
 
-Team members
-===
+Jiaxing Zhang | jzhang14@wpi.edu | smalljjjack
 
-- Jiaxing Zhang | jzhang14@wpi.edu | smalljjjack
-- Xuanyu Chen | xchen9@wpi.edu | xychen233
-- Zetian Wang | zwang11@wpi.edu | ZetianWang
+Xuanyu Chen | xchen9@wpi.edu | xychen233
 
-<!-- - Background
+Zetian Wang | zwang11@wpi.edu | 22121089
+
+- Background
     - Motivation
     - Objectives
 - Data
@@ -19,7 +18,7 @@ Team members
     - Initial Design
     - Final Design
 - Implementation
-- Conclusion -->
+- Conclusion
 
 
 # Background
@@ -84,6 +83,11 @@ def get_teamList_by_year():
 Initially, we have two parts, part 1 mainly contains a heatmap showing the number of games in countries, part 2 has force directed graph and a win lose bar as well as pie chart to showing winning rate.
 
 - part1:
+![part1_sketch](img/part1prototype.jpg)
+The frist part's prototype was consist by 3 main components, which are one world heatmap, one bubbule chart and one bar chart. User can use the tournament seletor to specify the tournament(default value "all" means all kinds of tournament), and use the timeline to choose time period(default time is from 1870 to 2017). Suppose one user who only cares about Ireland soccer team's performance in friendly campaign from 2012 to 2016. Then s/he can select the time and country by using timeline, clicking on Ireland in the map and choose tournament on the tournament selector. 
+Each coutry on the map will has different color, the color indicaties the number of campaign each coutry has played in the selected time period and selected tournament. 
+In the default statu (time from 1870 to 2017, and no country has been selected no tournament has been chose), the bubble chart shows the 10 countries in the history who had played more game than others. If user choose any conidtion like clicking on country in the map, or select time period, the bubble chart will interact with user' actions. For instace, it will show the 10 most popular away teams which had played most game with Ireland during 1920 to 1930. 
+On the other hand, the bar chart shows the 10 most popular tournaments of the default statu. And it also can interact with user actions. For instance, if user choose Ireland and time period from 1980 to 2017, the bar chart will show the 10 tournaments and the game number of each tournament which Ireland had participated most from 1980 to 2017.
 
 - part2:
 
@@ -98,8 +102,16 @@ Total:
 - navigate bar
 
 Part 1:
-- Heat map:
-- Bar chart:
+In our final design, we decided to discard some elements from the prototype and also added new components to it. Because bubblt chart is not good with showing the differece of volume, we decided not to use it in our final design. Instead, we add two other bar charts in oredr to show detail of the internation soccer campaign history. One is used for showing the top years which has more campagins than other years. One is to show who was the most popular away team during selected time period. Comparing with bubbule chart, bar chart is much better to show the difference, that's why we finally choose use it more than once.
+![part1_1](img/part1_1.png)
+### Heatmap default statu(no time and no country was selected). 
+![part1_2](img/part1_2.png)
+### User choose specific time period and country.
+![part1_3](img/part1_3.png)
+### Mouse hover on element, then title bar will show up to provide information detail. 
+- Heat map:In the final design, user could choose the time period by entering years to the time input areas. Default time is from 1950 to 2017. User could enter year between the default time period to the input, but the right input must be lagger than the left input and a window alert will remind user to enter valid input. 
+Country will be highlight if the mouse hover or click on it. And when you click on any country or select time period, the indicator above the map will change to indicate your chose. And country color will also change accompany with the changing of time period.  
+- Bar chart: The final design bar chart was made of three distinctive bar charts. The first one shows detail of the 10 most popular tournaments, the second charts shows the 10 countries which were the most popular away team and the last one show in which year, the selected coutry has play most campaigns. And all the three charts can also interact with the time selector and country selector.
 
 Part 2:
 
@@ -110,40 +122,29 @@ This screenshot shows the final design for the part2. Left part is a force direc
 
 ![forceTeam](img/forceDirectedGraph.png)
 
-The force directed graph is dragable, means you can drag one node and move it to some place else. Each node will show a tooltip when mose is on showing the team of the node.
+    The force directed graph is dragable, means you can drag one node and move it to some place else. Each node will show a tooltip when mose is on showing the team of the node.
 
 - Bar chart
 
 ![winlosebar](img/winLoseBar.png)
 
-The winning is displayed in red. The losing and defending is displayed in black. However the showing of win or lose as guest or host will be slightly different. The color for guest win will be more like pink to show a slightly difference.
+    The winning is displayed in red. The losing and defending is displayed in black. However the showing of win or lose as guest or host will be slightly different. The color for guest win will be more like pink to show a slightly difference.
 
 Part 3:
 
-The third part of this project aims to show the winning rate of a country in a continuous time perid using slope chart. So that, we can see whether a country's performance is stable or it encontered a downturn.
+    The third part of this project aims to show the winning rate of a country in a continuous time perid using slope chart. So that, we can see whether a country's performance is stable or it encontered a downturn.
 
 - Country Selection
 
-The left part of the page is a region within which are labels of countries. We can drag out a label to nondisplay this country's data. We can use the type in box and "Add" buttom to add a new country.  
+![CountrySelect](img/part3_slect.png)
 
-![CountrySelect](img/part3_select.png)
-
-- Slope Chart
-
-The middle part of the page is a slope chart to show the winning rate of selected countries in continous 5 year. Use the buttons beside, we can change the start year of time window. The lines in the slope chart will be lightened when mouse over.
-      
-![SlopeChart](img/part3_slope.png)
-
-- Pie chart
-
-When click certain line in the slope chart, a pie chart will show in the right part. This pie chart presents the tounaments the corresponding country took that year.
-      
-![PieChart](img/part3_pi.png)
+- Slope chart
 
 
 
 # Implementation
 
+<<<<<<< HEAD
 - Force Directed Graph
 
  Implementing the force directed graph mainly have reference from the book interactive data visualization chapter 13. In order to draw the graph, we have to prepare the data, nodes indicating countries, links indicating matches between countries. The data preparation stage is done part by python, and partly done using d3.
@@ -166,4 +167,6 @@ The slope chart is composed of lines which use d3.path, data points and axis. Ch
 
 Update of this part is trigger by the click event of slope chart. Use mouse hover and tooltips to show the detailed tornament name and match number.
 
+=======
+>>>>>>> b5b83e4eb453ad38baa7e44eaf5aa8cfebf6e8ef
 # Conclusion
