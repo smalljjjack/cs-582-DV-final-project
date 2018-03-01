@@ -136,8 +136,21 @@ Part 3:
 
 - Country Selection
 
-![CountrySelect](img/part3_slect.png)
+      This is the left part of the page. We can type in and click "Add" buttom to add a new country. If we don't want to show certain country's data, just drag it's label out to delete it.
 
+![CountrySelect](img/part3_select.png)
+
+- Winning Rate Slope Chart
+
+      This is the middle part of the page. We present the winning rate of the selected countries in a continuous five years. Clicking the buttoms beside can change the time period. Lines will be lightened when mouse over.
+      
+![SlopeChart](img/part3_slope.png)
+
+- Pie Chart
+
+      When click certain line in the slope chart, a pie chart will be presented in the right part of the page. The pie chart shows the detailed tournaments the country attened in that year.
+      
+![PieChart](img/part3_pi.png)
 - Slope chart
 
 
