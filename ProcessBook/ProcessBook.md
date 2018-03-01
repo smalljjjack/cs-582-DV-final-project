@@ -154,4 +154,16 @@ When click certain line in the slope chart, a pie chart will show in the right p
 
 This Win los bar contains two y axis, so it will show data in two directions. Each bar chart has the same x value, so no need to use two x axis. Both Force directed graph and win lose bar has mouse hover showing a tooltip of details.
 
+- Country Selection Field
+
+From the pre-processed data, we get the list of all countries. When type a country's name in the text box and click buttom, we will check the country list to make sure it's a leagal input. Then draw a new label in the field and update the selected country list for further update. When drag the label, we will check whether the label has been dragged out based on the event position. If so, update the selected country list and reallocate the remained labels.
+
+- Slope Chart
+
+The slope chart is composed of lines which use d3.path, data points and axis. Changing  the country selection field or time window will both trigger the chart update. Country's change causes the update of lines and data points. Time's change causes the update of lines, data points and axis using click event.
+
+- Tournament Pie Chart
+
+Update of this part is trigger by the click event of slope chart. Use mouse hover and tooltips to show the detailed tornament name and match number.
+
 # Conclusion
