@@ -5,7 +5,7 @@ Soccer Data Vis
 - Xuanyu Chen | xchen9@wpi.edu | xychen233
 - Zetian Wang | zwang11@wpi.edu | ZetianWang
 
-- Background
+<!-- - Background
     - Motivation
     - Objectives
 - Data
@@ -16,7 +16,7 @@ Soccer Data Vis
     - Initial Design
     - Final Design
 - Implementation
-- Conclusion
+- Conclusion -->
 
 
 # Background
