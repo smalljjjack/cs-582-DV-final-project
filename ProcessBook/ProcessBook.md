@@ -144,7 +144,6 @@ Part 3:
 
 # Implementation
 
-<<<<<<< HEAD
 - Force Directed Graph
 
  Implementing the force directed graph mainly have reference from the book interactive data visualization chapter 13. In order to draw the graph, we have to prepare the data, nodes indicating countries, links indicating matches between countries. The data preparation stage is done part by python, and partly done using d3.
@@ -167,6 +166,4 @@ The slope chart is composed of lines which use d3.path, data points and axis. Ch
 
 Update of this part is trigger by the click event of slope chart. Use mouse hover and tooltips to show the detailed tornament name and match number.
 
-=======
->>>>>>> b5b83e4eb453ad38baa7e44eaf5aa8cfebf6e8ef
 # Conclusion
