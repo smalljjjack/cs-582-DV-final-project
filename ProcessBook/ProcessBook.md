@@ -1,13 +1,14 @@
 Soccer Data Vis
 ===
 
-Jiaxing Zhang | jzhang14@wpi.edu | smalljjjack
+Team members
+===
 
-Xuanyu Chen | xchen9@wpi.edu | xychen233
+- Jiaxing Zhang | jzhang14@wpi.edu | smalljjjack
+- Xuanyu Chen | xchen9@wpi.edu | xychen233
+- Zetian Wang | zwang11@wpi.edu | ZetianWang
 
-Zetian Wang | zwang11@wpi.edu | ZetianWang
-
-- Background
+<!-- - Background
     - Motivation
     - Objectives
 - Data
@@ -18,7 +19,7 @@ Zetian Wang | zwang11@wpi.edu | ZetianWang
     - Initial Design
     - Final Design
 - Implementation
-- Conclusion
+- Conclusion -->
 
 
 # Background
