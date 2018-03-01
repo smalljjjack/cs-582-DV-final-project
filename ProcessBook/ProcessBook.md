@@ -104,11 +104,11 @@ Total:
 Part 1:
 In our final design, we decided to discard some elements from the prototype and also added new components to it. Because bubblt chart is not good with showing the differece of volume, we decided not to use it in our final design. Instead, we add two other bar charts in oredr to show detail of the internation soccer campaign history. One is used for showing the top years which has more campagins than other years. One is to show who was the most popular away team during selected time period. Comparing with bubbule chart, bar chart is much better to show the difference, that's why we finally choose use it more than once.
 ![part1_1](img/part1_1.png)
-###Heatmap default statu(no time and no country was selected). 
+### Heatmap default statu(no time and no country was selected). 
 ![part1_2](img/part1_2.png)
-###User choose specific time period and country.
+### User choose specific time period and country.
 ![part1_3](img/part1_3.png)
-###Mouse hover on element, then title bar will show up to provide information detail. 
+### Mouse hover on element, then title bar will show up to provide information detail. 
 - Heat map:In the final design, user could choose the time period by entering years to the time input areas. Default time is from 1950 to 2017. User could enter year between the default time period to the input, but the right input must be lagger than the left input and a window alert will remind user to enter valid input. 
 Country will be highlight if the mouse hover or click on it. And when you click on any country or select time period, the indicator above the map will change to indicate your chose. And country color will also change accompany with the changing of time period.  
 - Bar chart: The final design bar chart was made of three distinctive bar charts. The first one shows detail of the 10 most popular tournaments, the second charts shows the 10 countries which were the most popular away team and the last one show in which year, the selected coutry has play most campaigns. And all the three charts can also interact with the time selector and country selector.
