@@ -5,7 +5,7 @@ Jiaxing Zhang | jzhang14@wpi.edu | smalljjjack
 
 Xuanyu Chen | xchen9@wpi.edu | xychen233
 
-Zetian Wang | zwang11@wpi.edu | 22121089
+Zetian Wang | zwang11@wpi.edu | ZetianWang
 
 - Background
     - Motivation
