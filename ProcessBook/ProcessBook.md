@@ -123,9 +123,21 @@ Part 3:
 
 - Country Selection
 
-![CountrySelect](img/part3_slect.png)
+      The left part of the page is a region within which are labels of countries. We can drag out a label to nondisplay this country's data. We can use the type in box and "Add" buttom to add a new country.  
 
-- Slope chart
+![CountrySelect](ProcessBook/img/part3_slect.png)
+
+- Slope Chart
+
+      The middle part of the page is a slope chart to show the winning rate of selected countries in continous 5 year. Use the buttons beside, we can change the start year of time window. The lines in the slope chart will be lightened when mouse over.
+      
+![SlopeChart](ProcessBook/img/part3_slope.png)
+
+- Pie chart
+
+      When click certain line in the slope chart, a pie chart will show in the right part. This pie chart presents the tounaments the corresponding country took that year.
+      
+![PieChart](ProcessBook/img/part3_pi.png)
 
 
 
