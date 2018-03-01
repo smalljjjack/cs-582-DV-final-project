@@ -178,3 +178,7 @@ The slope chart is composed of lines which use d3.path, data points and axis. Ch
 Update of this part is trigger by the click event of slope chart. Use mouse hover and tooltips to show the detailed tornament name and match number.
 
 # Conclusion
+
+In this project we present the international football result dataset in different dimension using different kinds of charts. The world heatmap shows the popularity of football around the world. The force directed graph shows the frequent communication between countries via football match. The slope chart shows the change of different countries' perfomance.
+Many tools, libraries and technologies are used in our project, including bootstrap, different kinds of  event and tooltips. Since we want to develop a page which is highly interactive.
+Through this project, we want to present the history and great influence of football, as well as the enthusiasm of football fans from different countries.
