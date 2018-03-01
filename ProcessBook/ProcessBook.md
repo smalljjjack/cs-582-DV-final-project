@@ -125,7 +125,7 @@ The third part of this project aims to show the winning rate of a country in a c
 
 The left part of the page is a region within which are labels of countries. We can drag out a label to nondisplay this country's data. We can use the type in box and "Add" buttom to add a new country.  
 
-![CountrySelect](img/part3_slect.png)
+![CountrySelect](img/part3_select.png)
 
 - Slope Chart
 
