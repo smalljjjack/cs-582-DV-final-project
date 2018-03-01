@@ -1,8 +1,9 @@
 # cs-582-DV-final-project
 
 - Github repo: https://github.com/smalljjjack/cs-582-DV-final-project
-
 - Github page: https://smalljjjack.github.io/cs-582-DV-final-project/
+- Demo video: https://www.youtube.com/watch?v=wuuvKgQFtew&feature=youtu.be
+- Process book: https://github.com/smalljjjack/cs-582-DV-final-project/blob/master/ProcessBook/ProcessBook.md
 
 Teammember:
 ===
