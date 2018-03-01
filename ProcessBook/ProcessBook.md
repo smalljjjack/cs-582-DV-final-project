@@ -132,7 +132,7 @@ This screenshot shows the final design for the part2. Left part is a force direc
 
 Part 3:
 
-    The third part of this project aims to show the winning rate of a country in a continuous time perid using slope chart. So that, we can see whether a country's performance is stable or it encontered a downturn.
+The third part of this project aims to show the winning rate of a country in a continuous time perid using slope chart. So that, we can see whether a country's performance is stable or it encontered a downturn. The following screenshots shows the components of the winning rate page. The interactive events are clearly show in the project video.
 
 - Country Selection
 
