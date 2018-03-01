@@ -1,11 +1,9 @@
 Soccer Data Vis
 ===
 
-Jiaxing Zhang | jzhang14@wpi.edu | smalljjjack
-
-Xuanyu Chen | xchen9@wpi.edu | xychen233
-
-Zetian Wang | zwang11@wpi.edu | 22121089
+- Jiaxing Zhang | jzhang14@wpi.edu | smalljjjack
+- Xuanyu Chen | xchen9@wpi.edu | xychen233
+- Zetian Wang | zwang11@wpi.edu | ZetianWang
 
 - Background
     - Motivation
@@ -99,7 +97,6 @@ This sketch contains the original design of part 2. What on the left is a force 
 Finally, our design contains three parts. With each part consists of some different chart type.
 
 Total:
-- navigate bar
 
 Part 1:
 In our final design, we decided to discard some elements from the prototype and also added new components to it. Because bubblt chart is not good with showing the differece of volume, we decided not to use it in our final design. Instead, we add two other bar charts in oredr to show detail of the internation soccer campaign history. One is used for showing the top years which has more campagins than other years. One is to show who was the most popular away team during selected time period. Comparing with bubbule chart, bar chart is much better to show the difference, that's why we finally choose use it more than once.
@@ -122,13 +119,13 @@ This screenshot shows the final design for the part2. Left part is a force direc
 
 ![forceTeam](img/forceDirectedGraph.png)
 
-    The force directed graph is dragable, means you can drag one node and move it to some place else. Each node will show a tooltip when mose is on showing the team of the node.
+The force directed graph is dragable, means you can drag one node and move it to some place else. Each node will show a tooltip when mose is on showing the team of the node.
 
 - Bar chart
 
 ![winlosebar](img/winLoseBar.png)
 
-    The winning is displayed in red. The losing and defending is displayed in black. However the showing of win or lose as guest or host will be slightly different. The color for guest win will be more like pink to show a slightly difference.
+The winning is displayed in red. The losing and defending is displayed in black. However the showing of win or lose as guest or host will be slightly different. The color for guest win will be more like pink to show a slightly difference.
 
 Part 3:
 
@@ -136,19 +133,19 @@ The third part of this project aims to show the winning rate of a country in a c
 
 - Country Selection
 
-      This is the left part of the page. We can type in and click "Add" buttom to add a new country. If we don't want to show certain country's data, just drag it's label out to delete it.
+This is the left part of the page. We can type in and click "Add" buttom to add a new country. If we don't want to show certain country's data, just drag it's label out to delete it.
 
 ![CountrySelect](img/part3_select.png)
 
 - Winning Rate Slope Chart
 
-      This is the middle part of the page. We present the winning rate of the selected countries in a continuous five years. Clicking the buttoms beside can change the time period. Lines will be lightened when mouse over.
+This is the middle part of the page. We present the winning rate of the selected countries in a continuous five years. Clicking the buttoms beside can change the time period. Lines will be lightened when mouse over.
       
 ![SlopeChart](img/part3_slope.png)
 
 - Pie Chart
 
-      When click certain line in the slope chart, a pie chart will be presented in the right part of the page. The pie chart shows the detailed tournaments the country attened in that year.
+When click certain line in the slope chart, a pie chart will be presented in the right part of the page. The pie chart shows the detailed tournaments the country attened in that year.
       
 ![PieChart](img/part3_pi.png)
 
