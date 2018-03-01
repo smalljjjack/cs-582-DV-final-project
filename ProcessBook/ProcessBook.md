@@ -83,7 +83,7 @@ def get_teamList_by_year():
 Initially, we have two parts, part 1 mainly contains a heatmap showing the number of games in countries, part 2 has force directed graph and a win lose bar as well as pie chart to showing winning rate.
 
 - part1:
-![part1_sketch](img/part1_prototype.jpg)
+![part1_sketch](img/part1prototype.jpg)
 The frist part's prototype was consist by 3 main components, which are one world heatmap, one bubbule chart and one bar chart. User can use the tournament seletor to specify the tournament(default value "all" means all kinds of tournament), and use the timeline to choose time period(default time is from 1870 to 2017). Suppose one user who only cares about Ireland soccer team's performance in friendly campaign from 2012 to 2016. Then s/he can select the time and country by using timeline, clicking on Ireland in the map and choose tournament on the tournament selector. 
 Each coutry on the map will has different color, the color indicaties the number of campaign each coutry has played in the selected time period and selected tournament. 
 In the default statu (time from 1870 to 2017, and no country has been selected no tournament has been chose), the bubble chart shows the 10 countries in the history who had played more game than others. If user choose any conidtion like clicking on country in the map, or select time period, the bubble chart will interact with user' actions. For instace, it will show the 10 most popular away teams which had played most game with Ireland during 1920 to 1930. 
